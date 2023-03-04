@@ -1,7 +1,10 @@
 use std::f32::consts::PI;
 
 use bevy::{
-    core_pipeline::{bloom::BloomSettings, tonemapping::Tonemapping},
+    core_pipeline::{
+        bloom::{BloomCompositeMode, BloomPrefilterSettings, BloomSettings},
+        tonemapping::Tonemapping,
+    },
     gltf::Gltf,
     pbr::{CascadeShadowConfigBuilder, NotShadowCaster, NotShadowReceiver},
     prelude::*,
@@ -81,7 +84,17 @@ fn setup_camera_lights(mut commands: Commands) {
             color: Color::DARK_GRAY,
             ..default()
         },
-        BloomSettings::default(),
+        BloomSettings {
+            intensity: 0.2,
+            composite_mode: BloomCompositeMode::Additive,
+            high_pass_frequency: 0.75,
+            prefilter_settings: BloomPrefilterSettings {
+                threshold: 0.7,
+                threshold_softness: 0.5,
+                ..default()
+            },
+            ..default()
+        },
     ));
 
     // Campfire light
@@ -196,6 +209,7 @@ fn patch_loaded_scene(
                 if let Some(mut smoke_material) = materials.get_mut(smoke_material_handle) {
                     smoke_material.alpha_mode = AlphaMode::Add;
                     smoke_material.base_color = Color::BLACK;
+                    smoke_material.reflectance = 0.0;
                     smoke_material.emissive = Color::rgb(0.5, 0.3, 0.2);
                     smoke_material.emissive_texture = smoke_material.base_color_texture.clone();
                 }
