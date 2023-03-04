@@ -195,6 +195,7 @@ fn patch_loaded_scene(
                 if let Some(mut stained_material) = materials.get_mut(stained_material_handle) {
                     stained_material.alpha_mode = AlphaMode::Add;
                     stained_material.depth_bias = 0.3;
+                    stained_material.perceptual_roughness = 0.1;
                 }
             }
 
