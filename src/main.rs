@@ -23,7 +23,6 @@ struct Patched;
 fn main() {
     App::new()
         .add_plugins(DefaultPlugins)
-        .insert_resource(Msaa::Off)
         .insert_resource(AmbientLight {
             color: Color::BLACK,
             brightness: 0.0,
