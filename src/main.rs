@@ -1,10 +1,7 @@
 use std::f32::consts::PI;
 
 use bevy::{
-    core_pipeline::{
-        bloom::{BloomCompositeMode, BloomPrefilterSettings, BloomSettings},
-        tonemapping::Tonemapping,
-    },
+    core_pipeline::{bloom::BloomSettings, tonemapping::Tonemapping},
     gltf::Gltf,
     pbr::{CascadeShadowConfigBuilder, NotShadowCaster, NotShadowReceiver},
     prelude::*,
