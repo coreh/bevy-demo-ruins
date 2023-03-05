@@ -84,14 +84,8 @@ fn setup_camera_lights(mut commands: Commands) {
             ..default()
         },
         BloomSettings {
-            intensity: 0.2,
-            composite_mode: BloomCompositeMode::Additive,
+            intensity: 0.35,
             high_pass_frequency: 0.75,
-            prefilter_settings: BloomPrefilterSettings {
-                threshold: 0.7,
-                threshold_softness: 0.5,
-                ..default()
-            },
             ..default()
         },
     ));
@@ -201,7 +195,10 @@ fn patch_loaded_scene(
             if let Some(fire_material_handle) = gltf.named_materials.get("fire".into()) {
                 if let Some(mut fire_material) = materials.get_mut(fire_material_handle) {
                     fire_material.alpha_mode = AlphaMode::Add;
-                    fire_material.unlit = true;
+                    fire_material.base_color = Color::BLACK;
+                    fire_material.reflectance = 0.0;
+                    fire_material.emissive = Color::rgb_linear(10.0, 10.0, 10.0);
+                    fire_material.emissive_texture = fire_material.base_color_texture.clone();
                 }
             }
 
