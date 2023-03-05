@@ -78,9 +78,9 @@ fn setup_camera_lights(mut commands: Commands) {
         FogSettings {
             falloff: FogFalloff::Linear {
                 start: 14.0,
-                end: 100.0,
+                end: 35.0,
             },
-            color: Color::DARK_GRAY,
+            color: Color::DARK_GRAY * 0.85,
             ..default()
         },
         BloomSettings {
